@@ -1,0 +1,50 @@
+CREATE TABLE Bus(bus_no int ,Sources VARCHAR(20),Destination VARCHAR(20));
+INSERT INTO Bus VALUES('123','Hyd',    'Pune');
+INSERT INTO Bus VALUES('124','Mumbai', 'Hyd');
+INSERT INTO Bus VALUES('125','Nanded', 'Nizamabad');
+INSERT INTO Bus VALUES('126','Hyd',    'Vizag');
+SELECT * FROM Bus;
+ALTER TABLE Bus ADD (Color VARCHAR(20));
+UPDATE Bus SET Destination ='Tirupati' WHERE bus_no = '123';
+SELECT * FROM Bus;
+
+CREATE TABLE Passengers(P_name VARCHAR(20),P_id INT,Gender VARCHAR(20),Age INT,P_destination VARCHAR(20),P_destinationid INT);
+INSERT INTO Passengers VALUES('Surya',321,'Male',25,'Pune',11);
+INSERT INTO Passengers VALUES('John',456,'Male',35,'Hyderabad',22);
+INSERT INTO Passengers VALUES('Regina',987,'Female',27,'Nizamabad',33);
+INSERT INTO Passengers VALUES('Keerthana',654,'Female',30,'Vizag',44);
+SELECT * FROM Passengers;
+DELETE FROM Passengers P  WHERE P_name = 'Keerthana';
+SELECT * FROM Passengers;
+UPDATE Passengers SET P_name ='Sarathy' WHERE P_id = '654';
+SELECT * FROM Passengers;
+
+CREATE TABLE Ticket(T_id int,T_name VARCHAR(20), Sources VARCHAR(20),  Destination VARCHAR(20),P_id int,bus_no int);
+INSERT INTO Ticket VALUES(1,'Surya','Hyderabad','Pune',321,123);
+INSERT INTO Ticket VALUES(2,'John','Mumbai','Hyderabad',456,124);
+INSERT INTO Ticket VALUES(3,'Regina','Nanded','Nizamabad',987,125);
+INSERT INTO Ticket VALUES(4,'Keerthana','Hyderabad','Vizag',654,126);
+DELETE FROM Ticket T  WHERE Sources = 'Mumbai';
+SELECT * FROM Ticket;
+UPDATE Ticket SET Destination  ='Ahmedabad' WHERE P_id = '987';
+SELECT * FROM Ticket;
+
+CREATE TABLE Cancellation(C_id INT, T_id INT,P_id INT, seat_no VARCHAR(20), contact BIGINT, C_name VARCHAR(20));
+INSERT INTO Cancellation VALUES(01, 1,321, "L67", 998607849, "Surya");
+INSERT INTO Cancellation VALUES(02, 2,987, "L42", 817485960, "Regina");
+INSERT INTO Cancellation VALUES(03, 4,456, "L52", 775638596, "John");
+SELECT * FROM Cancellation;
+
+
+Create View PassView As Select * from Passengers;
+Select P_id,P_name from PassView where P_destinationid in(10,30); 
+Create View TicView As Select T_id from Ticket;
+select * from TicView;
+Create View CanView As Select * from Cancellation;
+SELECT * FROM CanView;
+CREATE View BusView AS Select * From Bus;
+Update BusView set bus_no=125 where Destination = 'Hyderabad';
+select * From BusView;
+CREATE View TicketView As SELECT * FROM Ticket;
+Delete from TicketView where bus_no = 125; 
+SELECT * From TicketView;
